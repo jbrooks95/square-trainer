@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Square Trainer</title>
+
+    <script>
+        var currentColor = "";
+        function generateSquare() {
+            file = Math.floor(Math.random() * 8);
+            rank = Math.floor(Math.random() * 8);
+            if (file % 2 === 0) {
+                if (rank % 2 === 0) {
+                    currentColor = "b";
+                }
+                else {
+                    currentColor = "w";
+                }
+            }
+            else if (rank % 2 === 0) {
+                currentColor = "w";
+            }
+            else {
+                currentColor = "b";
+            }
+            updateSquare(getSquareString(file, rank));
+        }
+
+        function getSquareString(file, rank) {
+            square = "";
+            switch (file) {
+                case 0:
+                    square = "a";
+                    break;
+                case 1:
+                    square = "b";
+                    break;
+                case 2:
+                    square = "c";
+                    break;
+                case 3:
+                    square = "d";
+                    break;
+                case 4:
+                    square = "e";
+                    break;
+                case 5:
+                    square = "f";
+                    break;
+                case 6:
+                    square = "g";
+                    break;
+                case 7:
+                    square = "h";
+                    break;
+            }
+            rankChar = (rank + 1).toString();
+            square = square.concat(rankChar);
+            return square;
+        }
+
+        function checkAnswer(answer) {
+            if (answer === currentColor) {
+                messageCorrect();
+            }
+            else{
+                messageIncorrect();
+            }
+            generateSquare();
+        }
+
+        function updateSquare(square) {
+            document.getElementById("square").innerHTML = square;
+        }
+
+        function messageCorrect() {
+            var element = document.getElementById("message")
+            element.innerHTML = "correct";
+            element.classList.remove("text-danger");
+            element.classList.add("text-success");
+        }
+
+        function messageIncorrect() {
+            element = document.getElementById("message")
+            element.innerHTML = "incorrect";
+            element.classList.remove("text-success");
+            element.classList.add("text-danger");
+        }
+    </script>
+</head>
+
+<body class="bg-light" onload="generateSquare()">
+    <div class="text-center pt-5">
+        <h1 id="message" class="display-4">start</h1>
+        <h1 id="square" class="mt-5 display-3 font-weight-normal"></h1>
+        <div class="pt-5">
+            <button type="button" class="btn btn-lg btn-light shadow" onclick="checkAnswer('w')">white</button>
+            <button type="button" class="btn btn-lg btn-dark shadow" onclick="checkAnswer('b')">black</button>
+        </div>
+    </div>
+</body>
+
+</html>
